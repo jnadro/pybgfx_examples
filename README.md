@@ -10,18 +10,29 @@ Look how easy it is to use:
     # Get your stuff done
     project.do_stuff()
 
-Features
+Functions Implemented
 --------
+Here are a list of the bgfx examples that have been ported to pybgfx.
 
-- Be awesome
-- Make things faster
+2 / 28
+
+* 00-helloworld
+* 01-cubes
 
 Installation
 ------------
 
-Install $project by running:
+Currently only works for Windows 64-bit.  [pybgfx](https://github.com/jnadro/pybgfx) is required.
 
-    install project
+```
+pip install pybgfx
+```
+
+Then run one of the samples
+
+```
+python helloworld.py
+```
 
 Contribute
 ----------
