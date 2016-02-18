@@ -34,6 +34,11 @@ Then run one of the samples
 python helloworld.py
 ```
 
+Debugging
+---------
+
+todo: write up how to debug python and native code.
+
 Contribute
 ----------
 

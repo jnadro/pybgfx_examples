@@ -5,16 +5,17 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{14bbefcd-1adc-4748-8465-074e60204e74}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>cubes.py</StartupFile>
+    <StartupFile>raymarch.py</StartupFile>
     <SearchPath />
-    <WorkingDirectory>.</WorkingDirectory>
+    <WorkingDirectory>C:\Users\jasno\Documents\GitHub\pybgfx_examples\examples\03-raymarch</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
     <InterpreterVersion />
-    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <EnableNativeCodeDebugging>True</EnableNativeCodeDebugging>
     <Name>pybgfx</Name>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
