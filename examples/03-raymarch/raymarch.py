@@ -1,9 +1,7 @@
 from ctypes import Structure, c_float, c_int, c_uint8, c_uint16, c_uint32, c_uint64, POINTER, byref, cast, sizeof, c_void_p, byref
 import time
 
-import bgfx
-import bgfx_utils
-from bgfx_ex import App
+import pybgfx as bgfx
 
 
 class PosColorTexCoord0Vertex(Structure):
@@ -17,7 +15,7 @@ class PosColorTexCoord0Vertex(Structure):
 def render_screen_space_quad(view, program, x, y, width, height):
     pass 
 
-class Raymarch(App):
+class Raymarch(bgfx.App):
 
     def __init__(self, width, height, title):
         self.width = width
@@ -47,7 +45,7 @@ class Raymarch(App):
         self.u_light_dir_time = bgfx.create_uniform("u_lightDirTime", bgfx.BGFX_UNIFORM_TYPE_VEC4, 1)
 
         # Create program from shaders.
-        self.raymarching = bgfx_utils.loadProgram("vs_raymarching", "fs_raymarching")
+        self.raymarching = bgfx.loadProgram("vs_raymarching", "fs_raymarching")
 
     def shutdown(self):
         bgfx.destroy_program(self.raymarching)
