@@ -1,4 +1,4 @@
-from ctypes import Structure, c_float, c_int, c_uint8, c_uint16, c_uint32, c_uint64, POINTER, byref, cast, sizeof, c_void_p, byref
+﻿from ctypes import pointer, Structure, c_float, c_int, c_uint8, c_uint16, c_uint32, c_uint64, POINTER, byref, cast, sizeof, c_void_p, byref
 import time
 
 import pybgfx as bgfx
@@ -12,8 +12,66 @@ class PosColorTexCoord0Vertex(Structure):
                 ("m_u", c_float),
                 ("m_v", c_float)]
 
-def render_screen_space_quad(view, program, x, y, width, height):
-    pass 
+
+def render_screen_space_quad(view, program, decl, x, y, width, height):
+    tvb = bgfx.transient_vertex_buffer()
+    tib = bgfx.transient_index_buffer()
+    if bgfx.alloc_transient_buffers(byref(tvb), decl, 4, byref(tib), 6):
+        vertex = cast(tvb.data, POINTER(PosColorTexCoord0Vertex))
+
+        zz = 0.0;
+
+        minx = x
+        maxx = x + width
+        miny = y
+        maxy = y + height
+
+        minu = -1.0
+        minv = -1.0
+        maxu =  1.0
+        maxv =  1.0
+
+        vertex[0].m_x = minx
+        vertex[0].m_y = miny
+        vertex[0].m_z = zz
+        vertex[0].m_abgr = 0xff0000ff
+        vertex[0].m_u = minu
+        vertex[0].m_v = minv
+
+        vertex[1].m_x = maxx
+        vertex[1].m_y = miny
+        vertex[1].m_z = zz
+        vertex[1].m_abgr = 0xff00ff00
+        vertex[1].m_u = maxu
+        vertex[1].m_v = minv
+
+        vertex[2].m_x = maxx
+        vertex[2].m_y = maxy
+        vertex[2].m_z = zz
+        vertex[2].m_abgr = 0xffff0000
+        vertex[2].m_u = maxu
+        vertex[2].m_v = maxv
+
+        vertex[3].m_x = minx
+        vertex[3].m_y = maxy
+        vertex[3].m_z = zz
+        vertex[3].m_abgr = 0xffffffff
+        vertex[3].m_u = minu
+        vertex[3].m_v = maxv
+
+        indices = cast(tib.data, POINTER(c_uint16))
+        indices[0] = 0
+        indices[1] = 2
+        indices[2] = 1
+        indices[3] = 0
+        indices[4] = 3
+        indices[5] = 2
+
+        bgfx.set_state(bgfx.BGFX_STATE_DEFAULT, 0)
+        bgfx.set_transient_index_buffer(byref(tib), 0, 6)
+        bgfx.set_transient_vertex_buffer(byref(tvb), 0, 4)
+        bgfx.submit(view, program, 0)
+
 
 class Raymarch(bgfx.App):
 
@@ -38,7 +96,7 @@ class Raymarch(bgfx.App):
                              3, bgfx.BGFX_ATTRIB_TYPE_FLOAT, False, False)
         bgfx.vertex_decl_add(self.ms_decl, bgfx.BGFX_ATTRIB_COLOR0,
                              4, bgfx.BGFX_ATTRIB_TYPE_UINT8, True, False)
-        bgfx.vertex_decl_add(self.ms_decl, bgfx.BGFX_ATTRIB_TEXCOORD0, 2, False, False)
+        bgfx.vertex_decl_add(self.ms_decl, bgfx.BGFX_ATTRIB_TEXCOORD0, 2, bgfx.BGFX_ATTRIB_TYPE_FLOAT, False, False)
         bgfx.vertex_decl_end(self.ms_decl)
 
         self.u_mtx = bgfx.create_uniform("u_mtx", bgfx.BGFX_UNIFORM_TYPE_MAT4, 1)
@@ -99,7 +157,7 @@ class Raymarch(bgfx.App):
                                   -0.00752700586, 0.0203432590, -148.999344, 9.99995613])
         bgfx.set_uniform(self.u_mtx, inv_mvp, 1)
 
-        render_screen_space_quad(1, self.raymarching, 0.0, 0.0, self.width, self.height)
+        render_screen_space_quad(1, self.raymarching, self.ms_decl, 0.0, 0.0, self.width, self.height)
 
         bgfx.frame()
 

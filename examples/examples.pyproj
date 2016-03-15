@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{14bbefcd-1adc-4748-8465-074e60204e74}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>raymarch.py</StartupFile>
+    <StartupFile>03-raymarch\raymarch.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>C:\Users\jasno\Documents\GitHub\pybgfx_examples\examples\03-raymarch</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -24,9 +24,10 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="cubes.py" />
-    <Compile Include="helloworld.py" />
-    <Compile Include="raymarch.py" />
+    <Folder Include="03-raymarch\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="03-raymarch\raymarch.py" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
