@@ -1,14 +1,7 @@
 pybgfx_examples
 ========
 
-$project will solve your problem of where to start with documentation,
-by providing a basic explanation of how to do it easily.
-
-Look how easy it is to use:
-
-    import project
-    # Get your stuff done
-    project.do_stuff()
+python ports of the bgfx examples [https://github.com/bkaradzic/bgfx/tree/master/examples](https://github.com/bkaradzic/bgfx/tree/master/examples)
 
 Functions Implemented
 --------
