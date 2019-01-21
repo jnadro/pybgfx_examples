@@ -24,8 +24,8 @@ class HelloWorld(bgfx.App):
         bgfx.set_view_rect(0, 0, 0, self.width, self.height)
         bgfx.touch(0)
         bgfx.dbg_text_clear(0, False)
-        bgfx.dbg_text_image(max(self.width / 2 / 8, 20) - 20,
-                            max(self.height / 2 / 16, 6) - 12,
+        bgfx.dbg_text_image(int(max(self.width / 2 / 8, 20)) - 20,
+                            int(max(self.height / 2 / 16, 6)) - 12,
                             40,
                             27,
                             python_image.s_python_logo,
@@ -35,5 +35,5 @@ class HelloWorld(bgfx.App):
             0, 2, 0x6f, "Description: Initialization and debug text.")
         bgfx.frame()
 
-app = HelloWorld(1280, 720, "pybgfx/examples/00-helloworld")
+app = HelloWorld(1280, 720, b"pybgfx/examples/00-helloworld")
 app.run()
