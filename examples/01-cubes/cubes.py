@@ -1,4 +1,4 @@
-﻿from ctypes import Structure, c_float, c_int, c_uint8, c_uint16, c_uint32, c_uint64, POINTER, byref, cast, sizeof, c_void_p, byref
+﻿from ctypes import Structure, c_float, c_int, c_uint8, c_uint16, c_uint32, c_uint64, POINTER, pointer, byref, cast, sizeof, c_void_p, byref
 import time
 
 import pybgfx as bgfx
@@ -49,16 +49,17 @@ class Cubes(bgfx.App):
         self.m_ibh = None
 
     def init(self):
-        bgfx.init(bgfx.BGFX_RENDERER_TYPE_COUNT,
-                  bgfx.BGFX_PCI_ID_NONE, 0, None, None)
-        bgfx.reset(self.width, self.height, bgfx.BGFX_RESET_VSYNC)
+        init = bgfx.bgfx_init_t()
+        bgfx.init_ctor(pointer(init))
+        bgfx.init(pointer(init))
+
+        bgfx.reset(self.width, self.height, bgfx.BGFX_RESET_VSYNC, init.resolution.format)
 
         # Enable debug text.
         bgfx.set_debug(bgfx.BGFX_DEBUG_TEXT)
 
         # Set view 0 clear state.
-        bgfx.set_view_clear(0, bgfx.BGFX_CLEAR_COLOR |
-                            bgfx.BGFX_CLEAR_DEPTH, 0x303030ff, 1.0, 0)
+        bgfx.set_view_clear(0, bgfx.BGFX_CLEAR_COLOR | bgfx.BGFX_CLEAR_DEPTH, 0x303030ff, 1.0, 0)
 
         # Create vertex stream declaration.
         rendererType = bgfx.get_renderer_type()
@@ -93,13 +94,12 @@ class Cubes(bgfx.App):
         bgfx.shutdown()
 
     def update(self, dt):
-        self.elapsed_time += dt;
+        self.elapsed_time += dt
 
         bgfx.dbg_text_clear(0, False)
-        bgfx.dbg_text_printf(0, 1, 0x4f, "pybgfx/examples/01-cube")
-        bgfx.dbg_text_printf(
-            0, 2, 0x6f, "Description: Rendering simple static mesh.")
-        bgfx.dbg_text_printf(0, 3, 0x0f, "Frame: %.3f [ms]" % (dt * 1000))
+        bgfx.dbg_text_printf(0, 1, 0x4f, b"pybgfx/examples/01-cube")
+        bgfx.dbg_text_printf(0, 2, 0x6f, b"Description: Rendering simple static mesh.")
+        bgfx.dbg_text_printf(0, 3, 0x0f, b"Frame: %.3f [ms]" % (dt * 1000))
 
         at = (c_float * 3)(*[0.0, 0.0, 0.0])
         eye = (c_float * 3)(*[0.0, 0.0, -35.0])
@@ -122,8 +122,8 @@ class Cubes(bgfx.App):
         # if no other draw calls are submitted to view 0.
         bgfx.touch(0)
 
-        for yy in xrange(11):
-            for xx in xrange(11):
+        for yy in range(0, 11):
+            for xx in range(0, 11):
 
                 mtx = (c_float * 16)(*[1.0, 0.0, 0.0, 0.0,
                                        0.0, 1.0, 0.0, 0.0,
@@ -136,16 +136,16 @@ class Cubes(bgfx.App):
                 bgfx.set_transform(mtx, 1)
 
                 # Set vertex and index buffer.
-                bgfx.set_vertex_buffer(self.m_vbh, 0, num_vertices)
+                bgfx.set_vertex_buffer(0, self.m_vbh, 0, num_vertices)
                 bgfx.set_index_buffer(self.m_ibh, 0, num_indices)
 
                 bgfx.set_state(bgfx.BGFX_STATE_DEFAULT, 0)
 
-                bgfx.submit(0, self.program, 0)
+                bgfx.submit(0, self.program, 0, False)
 
         # Advance to next frame. Rendering thread will be kicked to
         # process submitted rendering primitives.
-        bgfx.frame()
+        bgfx.frame(False)
 
-app = Cubes(1280, 720, "Cubes")
+app = Cubes(1280, 720, b"Cubes")
 app.run()
