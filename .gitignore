@@ -119,3 +119,5 @@ $RECYCLE.BIN/
 # Visual C++ cache files
 *.sdf
 *.opensdf
+
+examples/.vs

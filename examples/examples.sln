@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "01-cubes", "01-cubes\01-cubes.pyproj", "{12A71389-6521-4D2D-8321-89FB24604890}"
+EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "00-helloworld", "00-helloworld\00-helloworld.pyproj", "{C0369861-A74D-4403-ADB2-48BD3B224D1C}"
 EndProject
 Global
@@ -11,6 +13,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12A71389-6521-4D2D-8321-89FB24604890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12A71389-6521-4D2D-8321-89FB24604890}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0369861-A74D-4403-ADB2-48BD3B224D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C0369861-A74D-4403-ADB2-48BD3B224D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
@@ -18,6 +22,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6BA7018C-3599-4932-B588-5300683B5540}
+		SolutionGuid = {16E426FA-B28D-4ACB-9619-F047AA1E5CAC}
 	EndGlobalSection
 EndGlobal
